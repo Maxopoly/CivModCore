@@ -31,7 +31,7 @@ public abstract class ACivMod extends JavaPlugin {
 		if (handle == null) {
 			return newCommandHandler.executeCommand(sender, command, args);
 		} else {
-			return handle == null ? false : handle.execute(sender, command, args);
+			return handle.execute(sender, command, args);
 		}
 	}
 
@@ -67,7 +67,11 @@ public abstract class ACivMod extends JavaPlugin {
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
-		return handle == null ? null : handle.complete(sender, cmd, args);
+		if (handle == null) {
+			return newCommandHandler.tabCompleteCommand(sender, cmd, args);
+		} else {
+			return handle.complete(sender, cmd, args);
+		}
 	}
 
 	public CommandHandler getCommandHandler() {
